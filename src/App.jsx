@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Github, Linkedin, Mail, Download, ExternalLink, Send, User, MessageSquare, ArrowRight } from 'lucide-react';
-
+import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import hsb from './hsb.png'; // Placeholder for your image, replace with actual path
+import DarkMode from './components/darktoggle.jsx'; // Import your dark mode toggle component
+import Touch from './components/getintouch.jsx'; // Import your get in touch component
 const Portfolio = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (darkMode) {
@@ -34,7 +38,8 @@ const Portfolio = () => {
       title: "Apple DCF Valuation Breakdown",
       description: "Comprehensive discounted cash flow analysis of Apple Inc. using advanced financial modeling techniques and market comparables.",
       tech: ["Excel", "Python", "Financial Modeling"],
-      color: "from-blue-500 to-blue-600"
+      color: "from-blue-500 to-blue-600",
+      link:"https://harshitvaluation.github.io/apple-dcf/"
     },
     {
       title: "Crypto Pump and Dump Detection",
@@ -51,36 +56,51 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
+    <div className={`min-w-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="font-bold text-xl text-gray-900 dark:text-white">HS</div>
-          <div className="flex items-center space-x-6">
-            <a href="#hero" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
-            <a href="#about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
-            <a href="#projects" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Projects</a>
-            <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            >
-              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
-          </div>
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="font-bold text-xl text-gray-900 dark:text-white">Harshit Singh</div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-6">
+          <a href="#hero" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+          <a href="#about" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+          <a href="#projects" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Projects</a>
+          <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
+          <DarkMode darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
-      </nav>
+
+        {/* Hamburger Icon */}
+        <div className="md:hidden flex items-center">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-800 dark:text-white text-2xl">
+            {menuOpen ? <HiOutlineX /> : <HiOutlineMenu />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden flex flex-col items-center space-y-4 pb-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+          <a href="#hero" onClick={() => setMenuOpen(false)} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+          <a href="#about" onClick={() => setMenuOpen(false)} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+          <a href="#projects" onClick={() => setMenuOpen(false)} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Projects</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
+          <DarkMode darkMode={darkMode} setDarkMode={setDarkMode} />
+        </div>
+      )}
+    </nav>
 
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+            <h1 className="text-blue-500 dark:text-blue-300 text-5xl md:text-6xl font-bold leading-tight">
                 Harshit <span className="text-blue-600">Singh</span>
               </h1>
               <p className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                Future Investment Banker | Builder | Relentlessly Curious
+                Sophomore @ IEOR, IIT Bombay | Investment Banking Aspirant
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-lg">
                 Transforming complex financial landscapes through analytical rigor and innovative thinking. Building the future of finance, one model at a time.
@@ -88,20 +108,17 @@ const Portfolio = () => {
             </div>
             
             <div className="flex space-x-4">
-              <a href="https://linkedin.com" className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="https://linkedin.com/in/harshitsingh0318" target="_blank" className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="https://github.com" className="p-3 bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors">
-                <Github className="w-5 h-5" />
               </a>
               <a href="mailto:harshit@example.com" className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
 
-            <div className="flex space-x-4">
-              <a href="#contact" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
-                Get in Touch <ArrowRight className="ml-2 w-4 h-4" />
+            <div className="flex space-x-3">
+              <a href="#contact" >
+                <Touch />
               </a>
               <a href="#projects" className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 View Work
@@ -111,11 +128,11 @@ const Portfolio = () => {
           
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-80 h-80 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
-                <User className="w-32 h-32 text-white" />
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex items-center justify-center">
-                <span className="text-2xl font-bold text-blue-600">IIT</span>
+              
+                <img src={hsb} alt="Harshit Singh" className="w-72 h-72 shadow-lg object-cover" />
+              
+              <div className="absolute -bottom-4 -right-4 w-30 h-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex items-center justify-center">
+                <span className="text-xl font-bold text-blue-600">IIT Bombay</span>
               </div>
             </div>
           </div>
@@ -141,7 +158,7 @@ const Portfolio = () => {
                 <div className="text-gray-600 dark:text-gray-400">Bombay</div>
               </div>
               <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
-                <div className="text-3xl font-bold text-blue-600 mb-2">3+</div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">5+</div>
                 <div className="text-gray-600 dark:text-gray-400">Projects</div>
               </div>
               <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
@@ -179,9 +196,11 @@ const Portfolio = () => {
                       </span>
                     ))}
                   </div>
+                  <a href={project.link} target='_blank' className="flex items-center text-blue-600 hover:text-blue-700 transition-colors font-medium">
                   <button className="flex items-center text-blue-600 hover:text-blue-700 transition-colors font-medium">
                     View Project <ExternalLink className="ml-2 w-4 h-4" />
                   </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -202,10 +221,12 @@ const Portfolio = () => {
               <p className="text-gray-600 dark:text-gray-400 mb-6">
                 Comprehensive overview of my academic achievements, professional experience, and technical skills
               </p>
+              <a href="./resume.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 transition-colors">
               <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center mx-auto">
                 <Download className="mr-2 w-4 h-4" />
                 Download PDF
               </button>
+              </a>
             </div>
           </div>
         </div>
@@ -222,18 +243,18 @@ const Portfolio = () => {
                 I'm always interested in discussing new opportunities, innovative projects, or potential collaborations in finance and technology.
               </p>
               <div className="space-y-4">
+                <a href="mailto:harshitsingh.iitb@gmail.com">
                 <div className="flex items-center space-x-4">
                   <Mail className="w-5 h-5 text-blue-600" />
-                  <span className="text-gray-700 dark:text-gray-300">harshit.singh@example.com</span>
+                  <span className="text-gray-700 dark:text-gray-300">harshitsingh.iitb@gmail.com</span>
                 </div>
+                </a>
+                <a href="https://linkedin.com/in/harshitsingh0318" target="_blank" rel="noopener noreferrer">
                 <div className="flex items-center space-x-4">
                   <Linkedin className="w-5 h-5 text-blue-600" />
-                  <span className="text-gray-700 dark:text-gray-300">linkedin.com/in/harshitsingh</span>
+                  <span className="text-gray-700 dark:text-gray-300">linkedin.com/in/harshitsingh0318</span>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <Github className="w-5 h-5 text-blue-600" />
-                  <span className="text-gray-700 dark:text-gray-300">github.com/harshitsingh</span>
-                </div>
+                </a>
               </div>
             </div>
             
