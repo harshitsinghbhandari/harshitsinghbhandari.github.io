@@ -96,10 +96,10 @@ const Portfolio = () => {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-            <h1 className="text-blue-500 dark:text-blue-300 text-5xl md:text-6xl font-bold leading-tight">
+            <h1 className={`${darkMode ? 'text-blue-300' : 'text-blue-600' } text-5xl md:text-6xl font-bold leading-tight`} >
                 Harshit <span className="text-blue-600">Singh</span>
               </h1>
-              <p className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300">
+              <p className={`${darkMode ? 'text-white' : 'text-blue-600' } text-xl md:text-2xl font-semibold leading-tight`}>
                 Sophomore @ IEOR, IIT Bombay | Investment Banking Aspirant
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-lg">
